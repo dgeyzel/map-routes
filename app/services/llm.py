@@ -17,9 +17,6 @@ Rules:
 - For "from A to B" or "between A and B" along one road, use exactly two waypoints: the start intersection and the end intersection (e.g. "Skyline Blvd from 92 to 17" -> start at Skyline at CA-92, end at Skyline at CA-17).
 - Prefer intersection-style strings so geocoders return the actual junction: e.g. "Skyline Blvd and CA-17, California" or "CA-35 at CA-17, San Mateo County, CA" rather than a generic road name that might resolve to a midpoint.
 - If the user is asking for a route between two points on the same road, use the start and end intersections.
-- Do not include any waypoints that are not on the route.
-- Make sure to include the roads specified by the user.  Do not include any roads that are not specified by the user.
-- If the user specifies a road to exclude, do not include any waypoints on that road.
 
 Examples:
 - "Skyline Blvd from 92 to 17" -> ["Skyline Blvd at CA-92, California", "Skyline Blvd and CA-17, California"] (start at CA-92, end at the intersection with CA-17).
