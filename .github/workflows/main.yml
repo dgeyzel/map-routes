@@ -2,9 +2,11 @@ name: Python app flake8 and pytest
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
+  workflow_dispatch:
+    branches: [ "master" ]
 
 permissions:
   contents: read
