@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
-    branches: [ "master" ]
 
 permissions:
   contents: read
@@ -15,31 +14,30 @@ jobs:
   build:
     name: Lint and Test Workspace
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repo
-    - uses: actions/checkout@v4
-    
-    - name: Install uv
-    - uses: astral-sh/setup-uv@v5
-    with:
-        enable-cache: true
-        cache-dependency-glob: "uv.lock"
+      - name: Checkout repo
+        uses: actions/checkout@v4
         
-    - name: Set up Python 3.14
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.14"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+          
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          
+      - name: Install dependencies
+        run: uv sync
         
-    - name: Install dependencies
-      run: uv sync
-    
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    
-    - name: Test with pytest
-      run: uv run python -m pytest 
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          uvx flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          uvx flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude=.venv
+          
+      - name: Test with pytest
+        run: uv run python -m pytest
