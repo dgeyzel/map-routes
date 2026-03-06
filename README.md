@@ -35,6 +35,28 @@ uv run python -m uvicorn app.main:app --reload
 
 Open `http://127.0.0.1:8000` in a browser, enter a route description, and click "Get route".
 
+## Docker
+
+Build the image:
+
+```bash
+docker build -t map-routes .
+```
+
+Run the container (pass your Gemini API key):
+
+```bash
+docker run -p 8000:8000 -e GEMINI_API_KEY=your_key map-routes
+```
+
+To use a `.env` file instead of inline env vars:
+
+```bash
+docker run -p 8000:8000 --env-file .env map-routes
+```
+
+Then open `http://localhost:8000`. Optional env vars (e.g. **GOOGLE_MAPS_API_KEY**) are documented in the Setup section; pass them with `-e` or via `--env-file`.
+
 ## API
 
 - **POST /api/route** — Request body: `{ "query": "natural-language route description" }`. Returns waypoints (name, lat, lng), summary (distance in miles, duration in minutes), polyline (GeoJSON-style `[lng, lat]` pairs), and optional `via_road` (primary road name when available).

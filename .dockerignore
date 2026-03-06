@@ -1,0 +1,29 @@
+# Do not copy .env (secrets provided at runtime)
+.env
+.env.*
+
+# Git and IDE
+.git
+.github
+.vscode
+.cursorignore
+
+# Python
+__pycache__
+*.py[cod]
+.venv
+.venv/
+*.egg-info
+.pytest_cache
+.ruffcache
+
+# Tests (not needed in container)
+tests/
+
+# Docs and project metadata (optional; remove if you need them)
+*.md
+!README.md
+
+# Misc
+*.log
+map-routes.code-workspace
